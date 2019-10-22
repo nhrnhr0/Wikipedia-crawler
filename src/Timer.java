@@ -64,9 +64,19 @@ public class Timer {
         System.out.println(" elapses: " + timer.elapses);
     }
 
+    public static String getString(String name) {
+        TimeStruct timer = timers.get(name);
+        if(timer.elapses == 0)
+            return "";
+        String ret = name +  ": \t";
+        ret += "avg: " + (timer.totalTime / timer.elapses / 1000000.0);
+        ret += " elapses: " + timer.elapses;
+        return ret;
+    }
+
     public static void printAll() {
         for (String name : timers.keySet()) {
-            print(name);
+            System.out.println(getString(name));
         }
     }
 

@@ -2,18 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b774440-5c58-4d5e-bb66-a467a2ed47b9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Crawler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Node2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Timer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WikiEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WikiEngine2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WikiPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Crawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Crawler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Log.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Timer$TimeStruct.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Timer$TimeStruct.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Timer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Timer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiEngine$PageRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiEngine$PageRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiEngine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiPage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Crawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Timer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/WikiEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WikiEngine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firstSwingForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/firstSwingForm.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firstSwingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/firstSwingForm.java" afterDir="false" />
     </list>
@@ -35,9 +41,18 @@
   </component>
   <component name="ProjectId" id="1RpLGljqVHzgvtcAIA4RgKAqy4Q" />
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="227" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../WikiCrawler" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="258" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -91,19 +106,14 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/WikiEngine.java</url>
-          <line>120</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/WikiEngine.java</url>
-          <line>100</line>
+          <line>108</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="content.getAttribute(&quot;innerHTML&quot;)" language="JAVA" />
+        <watch expression="instance.pageLoadSpeedLbl.getText()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

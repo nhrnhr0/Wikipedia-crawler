@@ -1,3 +1,5 @@
+import net.bytebuddy.implementation.bytecode.Throw;
+
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -8,11 +10,23 @@ public class Node {
     private Node[] children;
     private int nodesAdded = 0;
 
-
     Node(String url) {
         this.url = url;
         isRequested = false;
         futurePage = null;
+    }
+
+    public String getTitle() {
+        if(futurePage.isDone() == false) {
+            Log.Error("Node getTitle: requesting title of a non loaded page");
+        }
+        try {
+            return futurePage.get().title;
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Log.Error("Node getTitle error getting page title");
+        }
+        return null;
     }
 
     public String getUrl() {
@@ -70,10 +84,18 @@ public class Node {
             Log.Error("Node getChild got " + i + " when page.links.size() = " + childrenSize());
             return null;
         }
+        return children[i];
+    }
+
+    Node requestChild(int i) {
+        if(childrenSize() <= i) {
+            Log.Error("Node requestChild got " + i + " when page.links.size() = " + childrenSize());
+            return null;
+        }
 
         if(children[i] == null) {
             Node n = new Node(getPage().links.get(i));
-            Log.Debug("Node getChild: " + ++nodesAdded + ") adding to node " + getUrl() + " > " + n.getUrl());
+            Log.Debug("Node requestChild: " + ++nodesAdded + ") adding to node " + getUrl() + " > " + n.getUrl());
             children[i] = n;
         }
         return children[i];

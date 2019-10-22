@@ -1,19 +1,12 @@
-import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Vector;
-import java.util.concurrent.Callable;
-
 class Crawler {
     private Node root;
     private int maxDepth;
+    private int currentSearchLvl;
 
 
     void setMaxDepth(int depth) {
         this.maxDepth = depth;
+        this.currentSearchLvl = -1;
     }
 
     Crawler() {
@@ -22,6 +15,8 @@ class Crawler {
     Node getRoot() {
         return root;
     }
+    int getMaxDepth() {return maxDepth;}
+    int getCurrentSearchLvl() {return currentSearchLvl;}
 
     boolean BFS(String startValue, String endValue) {
 
@@ -32,6 +27,7 @@ class Crawler {
         Log.Info("Crawler BFS: root node init");
         for(int i = 0; i < maxDepth; ++i) {
             Log.Info("Crawler BFS: starting level: " + (i+1));
+            currentSearchLvl = i+1;
             boolean found = searchOnLevel(root, i+1, endValue);
             if(found)
                 return true;
@@ -59,15 +55,15 @@ class Crawler {
 
             // if any children not requested yet, then request them
             for(int i = 0;i < root.childrenSize(); ++i) {
-                if(root.getChild(i).isRequested() == false)
-                    root.getChild(i).RequestPage();
+                if(root.requestChild(i).isRequested() == false)
+                    root.requestChild(i).RequestPage();
 
             }
 
             // call searchOnLevel to every child (going down one level)
             for(int i = 0; i < root.childrenSize(); i++) {
-                while(!root.getChild(i).isLoaded()); // wait for the child to get loaded
-                boolean found = searchOnLevel(root.getChild(i), level-1, target);
+                while(!root.requestChild(i).isLoaded()); // wait for the child to get loaded
+                boolean found = searchOnLevel(root.requestChild(i), level-1, target);
                 if(found) {
                     Log.Debug(root.getUrl() + " > ");
                     return true;
