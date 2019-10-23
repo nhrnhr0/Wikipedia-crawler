@@ -2,25 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b774440-5c58-4d5e-bb66-a467a2ed47b9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Crawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Crawler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Log.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Log.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Timer$TimeStruct.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Timer$TimeStruct.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/Timer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/Timer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiEngine$PageRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiEngine$PageRequest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiEngine.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiEngine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/WikiPage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/WikiPage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/swingTest/firstSwingForm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Crawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Crawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Timer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Timer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/WikiEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/WikiEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firstSwingForm.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/firstSwingForm.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firstSwingForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/firstSwingForm.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -102,18 +93,9 @@
     </option>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/WikiEngine.java</url>
-          <line>108</line>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
-        <watch expression="instance.pageLoadSpeedLbl.getText()" language="JAVA" />
+        <watch expression="content.getAttribute(&quot;innerHTML&quot;)" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

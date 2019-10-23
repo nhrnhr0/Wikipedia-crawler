@@ -3,6 +3,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -42,6 +43,14 @@ public class firstSwingForm {
 
         c = new Crawler();
         c.setMaxDepth(4);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent winEvt) {
+                WikiEngine.close();
+                //System.exit(0);
+            }
+        });
+
         instance.startBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,7 +60,9 @@ public class firstSwingForm {
                 crawlerThread = new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        instance.startBtn.setEnabled(false);
                         c.BFS(instance.startTxt.getText(), instance.endTextField.getText());
+                        instance.startBtn.setEnabled(true);
                     };
                 });
                 crawlerThread.start();
@@ -70,7 +81,7 @@ public class firstSwingForm {
                         DefaultTreeModel model = (DefaultTreeModel) instance.wikiTree.getModel();
                         DefaultMutableTreeNode treeRoot = (DefaultMutableTreeNode)model.getRoot();
                         treeRoot.removeAllChildren();
-                        treeRoot.add(new DefaultMutableTreeNode(root.getTitle()));
+                        treeRoot.add(new DefaultMutableTreeNode(root.getTitle() + "(" + root.childrenSize() + ")"));
                         copyNodeToTree(root, (DefaultMutableTreeNode) treeRoot.getChildAt(0));
                         model.reload();
                         instance.reloadTreeBtn.setEnabled(true);
@@ -88,7 +99,7 @@ public class firstSwingForm {
                 for(int i = 0; i < root.childrenSize(); i++) {
                     if(root.getChild(i) != null) {
                         if (root.getChild(i).isRequested() && root.getChild(i).isLoaded()) {
-                            treeRoot.add(new DefaultMutableTreeNode(root.requestChild(i).getTitle()));
+                            treeRoot.add(new DefaultMutableTreeNode(root.requestChild(i).getTitle() + "(" + root.requestChild(i).childrenSize() + ")"));
                             copyNodeToTree(root.getChild(i), (DefaultMutableTreeNode) treeRoot.getChildAt(i));
                         } else return;
                     }
@@ -116,7 +127,7 @@ public class firstSwingForm {
     private static final String strPageLoadedCount = "loaded pages count: ";
     private static final String strAvgLinksPerPage = "avg. links per page: ";
     private static final String strCurrSearchLvl = "currently looking target at level: ";
-    private static final String strPageLoadedSpeed = " pages loaded per min";
+    private static final String strPageLoadedSpeed = " pages/min";
 
 
     static void UiUpdateLoop() {
@@ -124,7 +135,7 @@ public class firstSwingForm {
         while(keepUpdateUI) {
             updateUI();
             try {
-                Thread.sleep(1000);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -147,10 +158,7 @@ public class firstSwingForm {
             SimpleDateFormat sdf = new SimpleDateFormat("mm:ss.SSS");
             String time = sdf.format(milsFromStart);
             instance.timeFromStartLbl.setText(time);
-            float secondsFromStart = (float)ChronoUnit.MILLIS.between(crawlerStartTime,Instant.now()) / 1000.0f;
-            Log.Info("secs from start: " + secondsFromStart);
-            float pageLoadSpeed = secondsFromStart / WikiEngine.getLoadedPageCount();
-            instance.pageLoadSpeedLbl.setText(pageLoadSpeed + strPageLoadedSpeed);
+            instance.pageLoadSpeedLbl.setText(WikiEngine.calcEngineSpeed() + strPageLoadedSpeed);
         }
 
     }

@@ -9,6 +9,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.html5.Location;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.Callable;
@@ -19,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WikiEngine {
-    private static final int chromeDriverSize = 3;
+    private static final int chromeDriverSize = 10;
     private static ChromeDriver[] drivers = new ChromeDriver[chromeDriverSize];
     private static final String URL_BASE = "https://en.wikipedia.org/wiki/";
     private static boolean isInit = false;
@@ -29,6 +31,7 @@ public class WikiEngine {
     private static int totalLinksFound = 0;
     private static final String LINK_REGEX = "href\\s*=\\s*\\\"\\/wiki\\/([^\"&^:]*)\\\"";
     private static final Pattern linkPattern = Pattern.compile(LINK_REGEX);
+    private static Instant engineTimer;
 
 
     private WikiEngine() {
@@ -47,17 +50,36 @@ public class WikiEngine {
         executeService = Executors.newFixedThreadPool(chromeDriverSize);
         System.setProperty("webdriver.chrome.driver", "chromedriver77.exe");
         //driver = new ChromeDriver();
+        int yPosOffset = 85;
         for(int i = 0;i < chromeDriverSize; i++) {
             drivers[i] = new ChromeDriver();
-            drivers[i].manage().window().setPosition(new Point(1300,0));
+            drivers[i].manage().window().setPosition(new Point(1300,0 + yPosOffset*i));
         }
+        engineTimer = Instant.now();
         isInit = true;
+    }
+
+    static void close() {
+        executeService.shutdown();
+        for(int i = 0;i < drivers.length;i++) {
+            drivers[i].close();
+        }
+        Log.Info("WikiEngine is closed");
     }
 
     public static Future<WikiPage> requestPage(String url) {
         if(isInit == false)
             Init();
         return executeService.submit(new PageRequest(url, requestedPagesCount++%chromeDriverSize));
+    }
+
+    static float calcEngineSpeed() {
+        if(engineTimer == null) {
+            return 0.0f;
+        }
+        float secsFromStart = ChronoUnit.MILLIS.between(engineTimer, Instant.now()) / 1000.0f;
+        float ret = (getLoadedPageCount() / secsFromStart)*60;
+        return ret;
     }
 
 
