@@ -7,6 +7,7 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Stack;
 
 public class firstSwingForm {
     private JPanel config;
@@ -25,6 +26,8 @@ public class firstSwingForm {
     private JLabel lblCurrSearchLvl;
     private JLabel pageLoadSpeedLbl;
     private JLabel timeFromStartLbl;
+    private JLabel searchingStatusLbl;
+    private JLabel pathLbl;
     private static firstSwingForm instance;
     private static Thread crawlerThread;
     private static boolean keepUpdateUI;
@@ -35,6 +38,8 @@ public class firstSwingForm {
     public static void main(String args[]) {
         JFrame frame = new JFrame("App");
         instance = new firstSwingForm();
+
+
         frame.setContentPane(instance.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -42,7 +47,11 @@ public class firstSwingForm {
         frame.setVisible(true);
 
         c = new Crawler();
-        c.setMaxDepth(4);
+        /* new code */
+        DefaultTreeModel model = (DefaultTreeModel) instance.wikiTree.getModel();
+        DefaultMutableTreeNode treeRoot = (DefaultMutableTreeNode)model.getRoot();
+        treeRoot.removeAllChildren();
+        /* new code */
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(WindowEvent winEvt) {
@@ -61,8 +70,23 @@ public class firstSwingForm {
                     @Override
                     public void run() {
                         instance.startBtn.setEnabled(false);
-                        c.BFS(instance.startTxt.getText(), instance.endTextField.getText());
+                        c.setMaxDepth(Integer.parseInt(instance.maxDepthTextField.getText()));
+                        instance.searchingStatusLbl.setText("Searching");
+                        Stack<Node> path = c.BFS(instance.startTxt.getText(), instance.endTextField.getText());
                         instance.startBtn.setEnabled(true);
+                        if(path != null) {
+                            instance.searchingStatusLbl.setText("Found a path");
+                            Node node;
+                            while( path.isEmpty() == false) {
+                                node = path.pop();
+                                instance.pathLbl.setText(instance.pathLbl.getText() + node.getUrl() + (path.isEmpty()?"": " > "));
+                                keepUpdateUI = false;
+                            }
+                        }else {
+                            instance.searchingStatusLbl.setText("Path not found");
+                        }
+
+
                     };
                 });
                 crawlerThread.start();

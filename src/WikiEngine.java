@@ -7,6 +7,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.html5.Location;
 
 import java.time.Instant;
@@ -21,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WikiEngine {
-    private static final int chromeDriverSize = 10;
+    private static final int chromeDriverSize = 4;
     private static ChromeDriver[] drivers = new ChromeDriver[chromeDriverSize];
     private static final String URL_BASE = "https://en.wikipedia.org/wiki/";
     private static boolean isInit = false;
@@ -60,9 +61,12 @@ public class WikiEngine {
     }
 
     static void close() {
-        executeService.shutdown();
+        if(executeService != null)
+            executeService.shutdownNow();
         for(int i = 0;i < drivers.length;i++) {
-            drivers[i].close();
+            if(drivers[i] != null) {
+                drivers[i].close();
+            }
         }
         Log.Info("WikiEngine is closed");
     }
@@ -119,96 +123,6 @@ public class WikiEngine {
             totalLinksFound += linkSet.size();
             Timer.Stop("PageRequest_call collect links_" + driverIndex);
             return retPage;
-
-
-            /*
-            Log.Debug("PageRequest call: " + url + " is loading");
-            List<WebElement> links;
-            ArrayList<String> rawLinks;
-             synchronized (driver) {
-                Timer.Start("PageRequest_call sync");
-                driver.get(URL_BASE + url);
-                WebElement content = driver.findElement(By.id("mw-content-text"));
-                links = content.findElements(By.xpath("//a[starts-with(@href, \"/wiki/\") and not(contains(@href, \":\"))]"));
-                rawLinks = new ArrayList<>(links.size());
-                for(int i  = 0;i < links.size();++i) {
-                    rawLinks.add(links.get(i).getAttribute("href"));
-                }
-                Timer.Stop("PageRequest_call sync");
-            }
-
-
-            Timer.Start("PageRequest_call url trim");
-            WikiPage retPage = new WikiPage();
-            retPage.url = url;
-            for (String rawLink : rawLinks) {
-                String linkUrl = rawLink.substring("https://en.wikipedia.org/wiki/".length());
-                if (!linkUrl.equals(url) && !retPage.links.contains(linkUrl))
-                    retPage.links.add(linkUrl);
-            }
-            ++loadedPageCount;
-            Timer.Stop("PageRequest_call url trim");
-            Log.Debug("PageRequest call: " + retPage.url + " is loaded");
-            return retPage;
-
-             */
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-public class WikiEngine {
-    private static ChromeDriver driver = null;
-    private static final String URL_BASE = "https://en.wikipedia.org/wiki/";
-    private static boolean isInit = false;
-
-    // TODO: add the title
-    public static WikiPage get(final String url) {
-        if(isInit == false)
-            Init();
-        driver.get(URL_BASE + url);
-        WikiPage page = new WikiPage();
-        page.url = url;
-        WebElement content = driver.findElement(By.id("mw-content-text"));
-        List<WebElement> links = content.findElements(By.xpath("//a[starts-with(@href, \"/wiki/\") and not(contains(@href, \":\"))]"));
-        for(int i = 0;i < links.size(); i++) {
-            String linkUrl = links.get(i).getAttribute("href").substring("https://en.wikipedia.org/wiki/".length());
-            if(linkUrl.equals(url) == false && page.links.contains(linkUrl) == false)
-                page.links.add(linkUrl);
-        }
-        return page;
-    }
-
-    static void Init() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver77.exe");
-        driver = new ChromeDriver();
-        isInit = true;
-    }
-}
-*/

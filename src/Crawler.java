@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 class Crawler {
     private Node root;
     private int maxDepth;
@@ -18,7 +20,7 @@ class Crawler {
     int getMaxDepth() {return maxDepth;}
     int getCurrentSearchLvl() {return currentSearchLvl;}
 
-    boolean BFS(String startValue, String endValue) {
+    Stack<Node> BFS(String startValue, String endValue) {
 
         root = new Node(startValue);
         root.RequestPage();
@@ -28,28 +30,30 @@ class Crawler {
         for(int i = 0; i < maxDepth; ++i) {
             Log.Info("Crawler BFS: starting level: " + (i+1));
             currentSearchLvl = i+1;
-            boolean found = searchOnLevel(root, i+1, endValue);
-            if(found)
-                return true;
+            Stack<Node> found = searchOnLevel(root, i+1, endValue);
+            if(found!= null)
+                return found;
         }
-        return false;
+        return null;
     }
 
 
-    private boolean searchOnLevel(Node root, int level, String target) {
+    private Stack<Node> searchOnLevel(Node root, int level, String target) {
         if (root == null) {
             Log.Error("Crawler searchOnLevel: root is null");
-            return false;
+            return null;
         }
 
         if(level == 0)
-            return false;
+            return null;
 
         if(level == 1) {
             if(root.getUrl().equals(target)) {
                 Log.Info("Crawler searchOnLevel: target found");
                 Log.Debug(root.getUrl() + " > ");
-                return true;
+                Stack<Node> ret = new Stack<Node>();
+                ret.push(root);
+                return ret;
             }
         }else if(level > 1) {
 
@@ -63,14 +67,15 @@ class Crawler {
             // call searchOnLevel to every child (going down one level)
             for(int i = 0; i < root.childrenSize(); i++) {
                 while(!root.requestChild(i).isLoaded()); // wait for the child to get loaded
-                boolean found = searchOnLevel(root.requestChild(i), level-1, target);
-                if(found) {
+                Stack<Node> found = searchOnLevel(root.requestChild(i), level-1, target);
+                if(found != null) {
                     Log.Debug(root.getUrl() + " > ");
-                    return true;
+                    found.push(root);
+                    return found;
                 }
             }
         }
-        return false;
+        return null;
     }
 
 
